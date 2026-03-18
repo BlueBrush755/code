@@ -1,3 +1,4 @@
+"
 <?php
 require_once "config.php";
 
@@ -63,3 +64,4 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
 </div>
     </body>
 </html>
+"
