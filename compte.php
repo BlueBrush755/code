@@ -3,19 +3,25 @@ require_once "config.php";
 
 $message = '';
 
-if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['password'])) {
+if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['mdp'])) {
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+    $mdp = $_POST['mdp'];
 
-    $sql = "INSERT INTO users (nom, prenom, email, mdp) VALUES (:nom, :prenom, :email, :mdp)";
+    $sql = "INSERT INTO utilisateur (nom, prenom, mail, MDP) VALUES (:nom, :prenom, :mail, :mdp)";
     $stmt = $pdo->prepare($sql);
-    $result = $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'password' => $password]);
+    
+
+    $result = $stmt->execute([
+        'nom' => $nom, 
+        'prenom' => $prenom, 
+        'mail' => $email, 
+        'mdp' => $mdp
+    ]);
 
     if ($result) {
         $message = 'Inscription réussie!';
-        header('Location: login.php');
     } else {
         $message = 'Erreur lors de l\'inscription.';
     }
@@ -30,26 +36,21 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['password'])
         <link rel="stylesheet" href="compte.css">
     </head>
     <body>
-    <?php if (!empty($message)): ?>
-        <p style="color:red"><?= $message ?></p>
-    <?php endif; ?>
-
     <div class="login-container">
     <h2>Inscription</h2>
 
     <?php if (!empty($message)): ?>
-        <p style="color:red"><?= $message ?></p>
+        <p style="color:red"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <form action="register.php" method="post">
-        <div>
+    <form action="" method="post"> <div>
             <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom">
+            <input type="text" id="nom" name="nom" required>
         </div>
 
         <div>
             <label for="prenom">Prenom :</label>
-            <input type="text" id="prenom" name="prenom">
+            <input type="text" id="prenom" name="prenom" required>
         </div>
 
         <div>
@@ -59,8 +60,7 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['password'])
 
         <div>
             <label for="password">Mot de passe:</label>
-            <input type="password" id="mdp" name="mdp">
-        </div>
+            <input type="password" id="mdp" name="mdp" required> </div>
 
         <div>
             <input type="submit" value="S'inscrire">
@@ -68,3 +68,4 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['password'])
     </form>
 </div>
     </body>
+</html>
