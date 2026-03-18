@@ -38,30 +38,24 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
     <body>
     <div class="login-container">
     <h2>Inscription</h2>
-
     <?php if (!empty($message)): ?>
         <p style="color:red"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
-
     <form action="" method="post"> <div>
             <label for="nom">Nom :</label>
             <input type="text" id="nom" name="nom" required>
         </div>
-
         <div>
             <label for="prenom">Prenom :</label>
             <input type="text" id="prenom" name="prenom" required>
         </div>
-
         <div>
             <label for="email">Adresse e-mail:</label>
             <input type="email" id="email" name="email" required>
         </div>
-
         <div>
             <label for="password">Mot de passe:</label>
             <input type="password" id="mdp" name="mdp" required> </div>
-
         <div>
             <input type="submit" value="S'inscrire">
         </div>
